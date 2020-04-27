@@ -12,13 +12,14 @@ CREATE TABLE products
 
 );
 
-INSERT INTO products (product,pricemdepartment,stock_quantity)
-VALUES(Eloquent JavaScript, 23.99, Books, 200),
-       (JavaScript: The Good Parts, 23.49, Books, 200) ,
-       (Node.js Design Patterns, 31.19, Books, 150),
-       (Logitech Mouse M570, 29.99, Electronics, 146),
-       (SANWA Trackball Mouse, 34.99, Electronics, 130),
-       (Kensington Expert Mouse, 67.91, Electronics,1),
-       (Miles Davis -Kind of Blue, 18.14, Music, 30),
-       (John Coltrane - A Love Supreme, 19.99, Music, 30),
-       (Anita Baker - Rapture, 20.99, Music,20)
+INSERT INTO products (product,price,department,stock_quantity)
+VALUES("Eloquent JavaScript", 23.99, "Books", 200),
+       ("JavaScript: The Good Parts", 23.49, "Books", 200) ,
+       ("Node.js Design Patterns", 31.19, "Books", 150),
+       ("Logitech Mouse M570", 29.99, "Electronics", 146),
+       ("SANWA Trackball Mouse", 34.99, "Electronics", 130),
+       ("Kensington Expert Mouse", 67.91, "Electronics",1),
+       ("Miles Davis - Kind of Blue", 18.14, "Music", 30),
+       ("John Coltrane - A Love Supreme", 19.99, "Music", 30),
+       ("Anita Baker - Rapture", 20.99, "Music",20),
+       ("Muddy Waters - King Bee", 6.98, "Music", 10)
