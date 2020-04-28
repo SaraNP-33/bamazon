@@ -2,6 +2,7 @@
 var mysql= require("mysql");
 
 var inquirer= require("inquirer");
+var Table = require("cli-table3");
 
 // establish mysql connection to bamazon database
 
@@ -12,7 +13,7 @@ var connection= mysql.createConnection({
     password:"Zolula30%",
     database:"bamazon_db"
 });
-
+// connecting to mySQL
 connection.connect(function(err){
     if(err) throw err;
     console.log("Connected as id", connection.threadId);
@@ -22,6 +23,7 @@ connection.connect(function(err){
 // function that brings up the options menu
 
 function options(){
+    //give the options to the user
     inquirer
     .prompt({
         type:"list",
@@ -31,7 +33,7 @@ function options(){
     })
     .then(function(answer){
 
-   
+   //depending on what the user choses the switch case will deploy the right action
     switch(answer.option){
         case "View Products": 
         displayTable();
@@ -48,11 +50,27 @@ function options(){
 };
 
 function displayTable(){
-    
+    //CLI-table3 language to create a custom table
+    var table = new Table({
+        chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+               , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+               , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+               , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
+      });
+    // ask SQL to send the info from the table    
 connection.query("SELECT * FROM products", function(err,res){
     if(err) throw(err)
-   console.log(res);
-    
+    //create a loop to eiterate through the result from the query
+   for(var i=0; i<res.length;i++){
+      //assign a variable to hold the result from the query 
+    var items= res[i];
+    //transform the object sent from mySQL table into an array
+       items=Object.values(items)
+    //turn that array into a table that can be displayed in the terminal
+    table.push(items);
+       console.log(table.toString());
+   }
+    //give the user the options to do othr things. 
     options();
 })
 }
