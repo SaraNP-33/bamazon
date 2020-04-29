@@ -44,7 +44,7 @@ function options(){
         displayTable();
         break;
         case "Buy a Product": 
-        buyProd();
+        displayTable();
         break;
         case "Exit":
             exit();
@@ -78,9 +78,23 @@ function displayTable(){
     table.push(items);
     
   }
+  //display the table in the terminal
   console.log(table.toString());
-    //give the user the options to do othr things. 
-    leave();
+
+    //run an inquirer to allow user to make a purchase or exit the app
+    inquirer
+    .prompt({
+        type:"confirm",
+        name:"purchase",
+        message:"Want to make a purchase?",
+        default:true
+    }) .then(function(resp){
+        if(resp.purchase===true){
+            buyProd();
+        }else{
+            exit();
+        }
+    })
 })
 };
 
