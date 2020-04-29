@@ -18,7 +18,7 @@ var connection= mysql.createConnection({
 // connecting to mySQL
 connection.connect(function(err){
     if(err) throw err;
-    console.log("Connected as id", connection.threadId);
+    //console.log("Connected as id", connection.threadId);
    options();
 });
 
@@ -27,12 +27,15 @@ connection.connect(function(err){
 function options(){
     //give the options to the user
     inquirer
-    .prompt({
+    .prompt([{
         type:"list",
         name:"option",
         message:"What would you like to do?",
         choices:["View Products", "Buy a Product", "Exit"]
-    })
+    }
+    
+
+])
     .then(function(answer){
 
    //depending on what the user choses the switch case will deploy the right action
@@ -47,6 +50,7 @@ function options(){
             exit();
         break;
     }
+    
 })
  
 };
@@ -76,9 +80,11 @@ function displayTable(){
   }
   console.log(table.toString());
     //give the user the options to do othr things. 
-    options();
+    leave();
 })
-}
+};
+
+//function that allows user to buy a product
 function buyProd(){
     inquirer
     .prompt([{
@@ -100,33 +106,56 @@ function buyProd(){
   
 ])
   .then(function(ans){
+
     var prod=ans.product;
     var qty=ans.quantity;
+
     connection.query("SELECT * FROM products WHERE id= "+ prod, function(err,res){
         if(err) throw(err)
         //console.log(res);
+
         if(qty<=res[0].stock_quantity){
             var updateQuery= "UPDATE products SET stock_quantity= stock_quantity -" + qty + " WHERE id=" + prod
-            console.log(updateQuery)
+            //console.log(updateQuery)
+
             connection.query(updateQuery, function(err,result){
                 if(err)throw(err)
                 console.log("Thank you for your purchase. Your total price is:", (res[0].price * qty).toFixed(2));  
-                exit();
+                leave();
             })
             
         }else{
             console.log("Sorry, insufficient quantity");
-            exit();
+            leave();
         }
         
     })
   })
+    };
+
+function leave(){
+    inquirer
+    .prompt({
+    type:"list",
+    name:"leave",
+    message:"Are you done?",
+    choices:["Back to main menu", "Exit"]
+})
+
+.then(function(choice){
+    switch(choice.leave){
+        case "Back to main menu":
+            options();
+            break;
+        case "Exit":
+            exit();
+          break;  
     }
-
-
+})
+}; 
 
 //function that ends the connection
 function exit(){
     connection.end();
-    //console.log("Thank you for your visit!")
-}
+    console.log("Thank you for your visit!")
+};
