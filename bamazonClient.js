@@ -134,7 +134,7 @@ function buyProd(){
 
             connection.query(updateQuery, function(err,result){
                 if(err)throw(err)
-                console.log("Thank you for your purchase. Your total price is:", (res[0].price * qty).toFixed(2));  
+                console.log("Thank you for your purchase! Your", colors.magenta("total") ,"price is: $", colors.brightYellow((res[0].price * qty).toFixed(2)));  
                 leave();
             })
             
