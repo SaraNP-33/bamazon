@@ -88,7 +88,7 @@ Once all these dependencies were installed, then it made it possible to create t
 * MySQL WorkBench
 * MySQL - [NPM Library](https://www.npmjs.com/package/mysql)
 * CLI-Table3 - [NPM Library](https://www.npmjs.com/package/cli-table3)
-* Colors - (https://www.npmjs.com/package/colors)
+* Colors - [NPM Library] (https://www.npmjs.com/package/colors)
 
 ## Authors
 
