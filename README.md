@@ -94,8 +94,6 @@ Once all these dependencies were installed, then it made it possible to create t
 
 * Sara Neves Pereira
 
-## License
 
-This project is licensed under the UofA Coding Certificate BootCamp license.
 
 
